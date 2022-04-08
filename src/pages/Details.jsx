@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDetails } from "../store/details/details.selectors";
 import { useEffect } from "react";
 import { loadCountryByName } from "../store/details/details.actions";
+import { clearDetails } from "../store/countries/countries.actions";
 
 export const Details = () => {
 	const { name } = useParams();
@@ -15,6 +16,9 @@ export const Details = () => {
 	
 	useEffect(() => {
 		dispatch(loadCountryByName(name))
+		return () => {
+			dispatch(clearDetails())
+		}
 	}, [name, dispatch])
 	
 	const navigate = useNavigate();
